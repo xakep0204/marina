@@ -1,7 +1,7 @@
 {
     "configuration": "cpu=atmega2560",
     "board": "arduino:avr:mega",
-    "port": "/dev/tty.usbmodem1301",
+    "port": "/dev/tty.usbmodem1101",
     "programmer": "arduinoisp",
     "sketch": "IMU_Setup/IMU_Setup.ino",
     "output": "build",

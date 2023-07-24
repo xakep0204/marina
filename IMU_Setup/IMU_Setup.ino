@@ -1,6 +1,5 @@
 #include <basicMPU6050.h>
-
-
+#include "quaternion.h"
 
 // Constants
 
@@ -25,7 +24,7 @@ void setup() {
 
   Serial.begin(38400);
 
-
+  Quaternion q = Quaternion();
 
 }
 
@@ -33,13 +32,22 @@ void loop() {
 
   imu.updateBias();
 
-  float Ax = imu.ax();
+  Serial.print(">AX: ");
+  Serial.println(imu.ax()-1);
 
-  Serial.print( Ax );
-  Serial.print( " " );
-  Serial.print( imu.ay() );
-  Serial.print( " " );
-  Serial.print( imu.az() );
-  Serial.print( "    " );
+  Serial.print(">AY: ");
+  Serial.println(imu.ay());
+
+  Serial.print(">AZ: ");
+  Serial.println(imu.az());
+
+  Serial.print(">GX: ");
+  Serial.println(imu.gx());
+
+  Serial.print(">GY: ");
+  Serial.println(imu.gy());
+
+  Serial.print(">GZ: ");
+  Serial.println(imu.gz());
 
 }
