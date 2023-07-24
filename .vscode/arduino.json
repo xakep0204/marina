@@ -1,0 +1,9 @@
+{
+    "configuration": "cpu=atmega2560",
+    "board": "arduino:avr:mega",
+    "port": "/dev/tty.usbmodem1301",
+    "programmer": "arduinoisp",
+    "sketch": "IMU_Setup/IMU_Setup.ino",
+    "output": "build",
+    "intelliSenseGen": "enable"
+}
