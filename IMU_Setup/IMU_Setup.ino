@@ -1,5 +1,6 @@
 #include <basicMPU6050.h>
-#include "quaternion.h"
+#include <MadgwickAHRS.h>
+
 
 // Constants
 
@@ -9,22 +10,28 @@
 
 basicMPU6050<> imu;
 
+// Madgwick filter object setup
 
-float bAx;
+Madgwick filter;
 
 
+
+double acc[3] = {0,0,0};
+double gy[3] = {0,0,0};
 
 void setup() {
   // setting up registers
   imu.setup();
 
   imu.setBias();
+
+  filter.begin(1);
   
   // Serial Monitor
 
   Serial.begin(38400);
 
-  Quaternion q = Quaternion();
+ 
 
 }
 
@@ -32,22 +39,20 @@ void loop() {
 
   imu.updateBias();
 
-  Serial.print(">AX: ");
-  Serial.println(imu.ax()-1);
+  gy[0] = (double) imu.gx();
+  gy[1] = (double) imu.gy();
+  gy[2] = (double) imu.gz();
 
-  Serial.print(">AY: ");
-  Serial.println(imu.ay());
+  acc[0] = (double) imu.ax();
+  acc[1] = (double) imu.ay();
+  acc[2] = (double) imu.az();
 
-  Serial.print(">AZ: ");
-  Serial.println(imu.az());
 
-  Serial.print(">GX: ");
-  Serial.println(imu.gx());
 
-  Serial.print(">GY: ");
-  Serial.println(imu.gy());
 
-  Serial.print(">GZ: ");
-  Serial.println(imu.gz());
+  
+  
+  
+
 
 }

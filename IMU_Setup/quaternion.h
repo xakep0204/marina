@@ -10,7 +10,7 @@ class Quaternion {
     
     double p[4];
 
-    Quaternion(): p{1,0,0,0} {}
+    Quaternion(): p{1.0,0.0,0.0,0.0} {}
 
     Quaternion(double s, double x, double y, double z): p{s,x,y,z} {}
 
@@ -41,21 +41,45 @@ class Quaternion {
         return *this;
     }
 
-    Quaternion invert(){
+    Quaternion& invert(){
         this->conjugate();
         this->renormalize();
 
         return *this;
     }
 
-    Quaternion multiply(Quaternion a, Quaternion b){
-        Quaternion c;
+    Quaternion& setFromAngleAxis(double t,double x,double y, double z){
+        this->p[0] = cos(t/2);
+        this->p[1] = sin(t/2)*x;
+        this->p[2] = sin(t/2)*y;
+        this->p[3] = sin(t/2)*z;
 
-        c.p[0] = a.p[0]*b.p[0] - a.p[1]*b.p[1] - a.p[2]*b.p[2] - a.p[3]*b.p[3];
-        c.p[1] = a.p[0]*b.p[1] + a.p[1]*b.p[0] + a.p[2]*b.p[3] - a.p[3]*b.p[2];
-        c.p[2] = a.p[0]*b.p[2] - a.p[1]*b.p[3] + a.p[2]*b.p[0] + a.p[3]*b.p[1];
-        c.p[3] = a.p[0]*b.p[3] + a.p[1]*b.p[2] - a.p[2]*b.p[1] + a.p[3]*b.p[0];
+        return *this;
+
     }
+
+    Quaternion multiply(Quaternion a, Quaternion b) {
+    
+        Quaternion q;
+
+        q.p[0] = a.p[0] * b.p[0] - a.p[1] * b.p[1] - a.p[2] * b.p[2] - a.p[3] * b.p[3]; 
+        // Serial.print(">A: ");
+        // Serial.println(q.p[0]);
+    
+        q.p[1] = a.p[0] * b.p[1] + a.p[1] * b.p[0] + a.p[2] * b.p[3] - a.p[3] * b.p[2]; //i
+        // Serial.print(">B: ");
+        // Serial.println(q.p[1]);
+
+        q.p[2] = a.p[0] * b.p[2] - a.p[1] * b.p[3] + a.p[2] * b.p[0] + a.p[3] * b.p[1]; //j 
+        // Serial.print(">C: ");
+        // Serial.println(q.p[2]);
+
+        q.p[3] = a.p[0] * b.p[3] + a.p[1] * b.p[2] - a.p[2] * b.p[1] + a.p[3] * b.p[0]; //k
+        // Serial.print(">D: ");
+        // Serial.println(q.p[3]);
+    
+        return q;
+  }
 
     Quaternion rotate(Quaternion r){
         Quaternion inv_r = r.clone().invert();
