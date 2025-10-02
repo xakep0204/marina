@@ -1,5 +1,8 @@
 {
     "files.associations": {
         "*.tpp": "cpp"
+    },
+    "files.watcherExclude": {
+        "**/target": true
     }
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "Quaternion.h"
+#include "quaternion.h"
 
 void updateQuaternionGyro(Quaternion q, double gyr[3], double dt);
 
